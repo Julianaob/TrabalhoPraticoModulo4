@@ -1,11 +1,16 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { accountsRouter } from './routes/accountsRouter.js';
+require('dotenv').config();
 
 //conexão com o banco
 mongoose
   .connect(
-    'mongodb+srv://juliana:1234@cluster0-oupch.mongodb.net/TrabalhoPratico?retryWrites=true&w=majority',
+    `mongodb+srv:// {
+      $process.env.UserDB }
+      ':' 
+      {$process.env.DB_PASS }
+      @cluster0-oupch.mongodb.net/TrabalhoPratico?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -19,5 +24,5 @@ mongoose
 const app = express();
 app.use(express.json());
 app.use(accountsRouter);
-
-app.listen(3008, () => console.log('API Iniciada'));
+Console.log(process.env.UserDB);
+app.listen(process.env.PORT, () => console.log('API Iniciada'));
